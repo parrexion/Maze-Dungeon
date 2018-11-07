@@ -40,7 +40,6 @@ public class MapContainer : MonoBehaviour {
 
 	public bool IsDangerous(int x, int y) {
 		BasicControls basic = GetTile(x, y).currentCharacter;
-		Debug.Log("Checking dangeours at  " + x + " , " + y + "  :  " + (basic!=null));
 		return (basic && basic.type == CharacterType.ENEMY);
 	}
 

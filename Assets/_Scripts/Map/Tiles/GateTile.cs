@@ -17,6 +17,7 @@ public class GateTile : MapTile {
 
 	public override void Setup() {
 		active = reversed;
+		blocked = !active;
 		groupText.text = "";
 		if (reversed) {
 			leftGate.localScale = new Vector3(0f,1,1);
@@ -47,6 +48,12 @@ public class GateTile : MapTile {
 			StartCoroutine(Animate(active));
 		}
 		blocked = !active;
+		if (blocked && currentCharacter) {
+			if (currentCharacter.type == CharacterType.PLAYER) {
+				currentCharacter.DeathEffect();
+				killPlayerEvent.Invoke();
+			}
+		}
 	}
 
 	private IEnumerator Animate(bool open) {
