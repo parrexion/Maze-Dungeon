@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c2dac38df72694b98dd61a1dd0979e, type: 3}
+  m_Name: SchemeJoystick1
+  m_EditorClassIdentifier: 
+  schemeName: Joystick 1
+  schemeIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  useStick: 1
+  vertical: LstickVertical
+  horizontal: LstickHorizontal
+  up: 0
+  left: 0
+  right: 0
+  down: 0
+  select1: 350
+  select2: 351
+  select3: 352
+  select4: 353
+  action: 355
+  mode: 354
+  start: 357

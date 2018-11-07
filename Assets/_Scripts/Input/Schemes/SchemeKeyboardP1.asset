@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c2dac38df72694b98dd61a1dd0979e, type: 3}
+  m_Name: SchemeKeyboardP1
+  m_EditorClassIdentifier: 
+  schemeName: Keyboard Right
+  schemeIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  useStick: 0
+  vertical: 
+  horizontal: 
+  up: 273
+  left: 276
+  right: 275
+  down: 274
+  select1: 257
+  select2: 258
+  select3: 259
+  select4: 260
+  action: 305
+  mode: 271
+  start: 13

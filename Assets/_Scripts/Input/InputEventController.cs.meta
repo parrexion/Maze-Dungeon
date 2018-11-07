@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 666a66019c579a743be232e8d323a64b
+timeCreated: 1539586285
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lockAllControls: {fileID: 11400000, guid: c700391ae705b474892875cea79283c0, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
