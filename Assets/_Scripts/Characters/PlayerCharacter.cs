@@ -158,22 +158,22 @@ public class PlayerCharacter : BasicControls {
 
 		if (!mapContainer.IsWalkable(type, posx+1, posy))
 			return;
-		
+			
 		currentTile.LeaveTile(this);
-		posx++;
 		currentTile = next;
+		currentTile.EndOnTile(this);
+
+		if (!res) 
+			res = mapContainer.InteractTile(Direction.RIGHT, posx-1, posy);
+
+		posx++;
+		moveToPosition = currentTile.transform.position;
+		StartCoroutine(Move());
 		if (mapContainer.IsDangerous(posx, posy)) {
 			Debug.Log("DANGER TIME!");
 			DeathEffect();
 			killPlayerEvent.Invoke();
 		}
-		currentTile.EndOnTile(this);
-
-		if (!res)
-			res = mapContainer.InteractTile(Direction.RIGHT, posx-1, posy);
-
-		moveToPosition = currentTile.transform.position;
-		StartCoroutine(Move());
 		playerMoveRight.Invoke();
 	}
 
