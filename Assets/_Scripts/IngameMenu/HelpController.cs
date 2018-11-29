@@ -9,6 +9,7 @@ public class HelpController : MonoBehaviour {
 	public BoolVariable isSinglePlayer;
 
 	[Header("Game Objects")]
+	public GameObject pauseController;
 	public GameObject helpObject;
 	public GameObject p1ok;
 	public GameObject p2ok;
@@ -85,6 +86,7 @@ public class HelpController : MonoBehaviour {
 
 	private void ShowHelp(bool state) {
 		paused.value = state;
+		pauseController.SetActive(!state);
 		helpObject.SetActive(state);
 	}
 

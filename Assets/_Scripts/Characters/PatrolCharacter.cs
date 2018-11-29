@@ -17,7 +17,7 @@ public class PatrolCharacter : BasicControls {
 		posx = tile.posx;
 		posy = tile.posy;
 		moveDirection = tile.faceDirection;
-		reactPlayer1 = tile.reversed;
+		reactPlayer1 = !tile.reversed;
 		GetComponent<SpriteRenderer>().sprite = (reactPlayer1) ? reactP1Sprite : reactP2Sprite;
 
 		transform.position = currentTile.transform.position;
@@ -46,7 +46,7 @@ public class PatrolCharacter : BasicControls {
 		}
 		currentTile.LeaveTile(this);
 		currentTile = next;
-		currentTile.EndOnTile(this);
+		// currentTile.EndOnTile(this);
 		posx = next.posx;
 		posy = next.posy;
 		moveToPosition = currentTile.transform.position;

@@ -45,7 +45,6 @@ public class MainMenuController : MonoBehaviour {
 		mainMenu.SetActive(true);
 		levelSelect.SetActive(false);
 		controllerSelect.SetActive(false);
-		CreateLevelButtons();
 		SetupMainMenu();
 		SetupControllers();
 	}
@@ -55,7 +54,8 @@ public class MainMenuController : MonoBehaviour {
 		backgroundMulti.SetActive(!isSinglePlayer.value);
 	}
 
-	private void CreateLevelButtons() {
+	public void CreateLevelButtons() {
+		Debug.Log("Buttons!");
 		for (int i = 0; i < maxLevel.value; i++) {
 			Transform t = Instantiate(buttonTemplate, levelParent);
 			LevelButton lb = t.GetComponent<LevelButton>();

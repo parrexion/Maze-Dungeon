@@ -87,7 +87,7 @@ public class PlayerCharacter : BasicControls {
 		
 		currentTile.LeaveTile(this);
 		currentTile = next;
-		currentTile.EndOnTile(this);
+		// currentTile.EndOnTile(this);
 
 		if (!res)
 			res = mapContainer.InteractTile(Direction.UP, posx, posy-1);
@@ -124,7 +124,7 @@ public class PlayerCharacter : BasicControls {
 			
 		currentTile.LeaveTile(this);
 		currentTile = next;
-		currentTile.EndOnTile(this);
+		// currentTile.EndOnTile(this);
 
 		if (!res) 
 			res = mapContainer.InteractTile(Direction.LEFT, posx+1, posy);
@@ -161,7 +161,7 @@ public class PlayerCharacter : BasicControls {
 			
 		currentTile.LeaveTile(this);
 		currentTile = next;
-		currentTile.EndOnTile(this);
+		// currentTile.EndOnTile(this);
 
 		if (!res) 
 			res = mapContainer.InteractTile(Direction.RIGHT, posx-1, posy);
@@ -197,7 +197,7 @@ public class PlayerCharacter : BasicControls {
 		
 		currentTile.LeaveTile(this);
 		currentTile = next;
-		currentTile.EndOnTile(this);
+		// currentTile.EndOnTile(this);
 		
 		if (!res)
 			res = mapContainer.InteractTile(Direction.DOWN, posx, posy+1);

@@ -53,9 +53,9 @@ public class PlayerController : MonoBehaviour {
 			p1SelectedCharacter.value = index;
 		}
 
-		if (spawnCount > 1 && p1SelectedCharacter.value == p2SelectedCharacter.value){
-			p2SelectedCharacter.value = -1;
-		}
+		// if (spawnCount > 1 && p1SelectedCharacter.value == p2SelectedCharacter.value){
+		// 	p2SelectedCharacter.value = -1;
+		// }
 		UpdateSelections();
 	}
 
@@ -64,9 +64,9 @@ public class PlayerController : MonoBehaviour {
 			return;
 
 		p2SelectedCharacter.value = index;
-		if (spawnCount > 1 && p1SelectedCharacter.value == p2SelectedCharacter.value){
-			p1SelectedCharacter.value = -1;
-		}
+		// if (spawnCount > 1 && p1SelectedCharacter.value == p2SelectedCharacter.value){
+		// 	p1SelectedCharacter.value = -1;
+		// }
 		UpdateSelections();
 	}
 

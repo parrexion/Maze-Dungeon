@@ -27,7 +27,6 @@ public class BoxCharacter : BasicControls {
 			return;
 
 		moveDirection = dir;
-		Debug.Log("Push in dir:  " + dir);
 		MapTile next = GetNextTile();		
 		if (!next || !next.IsWalkable(type))
 			return;

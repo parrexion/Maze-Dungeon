@@ -33,6 +33,7 @@ public class SaveController : MonoBehaviour {
 	private string _backupSavePath = "";
 	private SavePackage saveFileData;
 
+	public UnityEvent saveFinishedEvent;
 	public UnityEvent loadFinishedEvent;
 
 
@@ -74,6 +75,7 @@ public class SaveController : MonoBehaviour {
 			serializer.Serialize(xmlWriter, saveFileData);
 		}
 		Debug.Log("Successfully saved the save data!\n" + _savePath);
+		saveFinishedEvent.Invoke();
 	}
 
 
@@ -107,6 +109,7 @@ public class SaveController : MonoBehaviour {
 		bestScore.value = saveFileData.bestScore;
 		
 		Debug.Log("Successfully pre-loaded the save data!");
+		loadFinishedEvent.Invoke();
 	}
 }
 

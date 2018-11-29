@@ -34,6 +34,7 @@ public abstract class BasicControls : MonoBehaviour {
 			yield return null;
 		}
 		isMoving = false;
+		currentTile.EndOnTile(this);
 	}
 
 }

@@ -622,6 +622,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5a3452aa2355484fa65b1d28acbe45d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &102650526 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1800852542913972, guid: e5a3452aa2355484fa65b1d28acbe45d,
+    type: 2}
+  m_PrefabInternal: {fileID: 102650525}
 --- !u!1 &127093231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,7 +1822,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Control each player by switching modes
 
-    Switch mode with %SWITCH           Press %ACTION to start'
+    Switch mode with %SWITCH     Press %ACTION to start'
 --- !u!222 &284483286
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3208,6 +3213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paused: {fileID: 11400000, guid: 1c0e5b6eb889b6847be0774bcdd571c5, type: 2}
   isSinglePlayer: {fileID: 11400000, guid: 0e6c54cfbff32ac4b844a12be605e3cb, type: 2}
+  pauseController: {fileID: 102650526}
   helpObject: {fileID: 504353109}
   p1ok: {fileID: 574753391}
   p2ok: {fileID: 413620829}
