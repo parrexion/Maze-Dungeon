@@ -47,6 +47,7 @@ public class MainMenuController : MonoBehaviour {
 		controllerSelect.SetActive(false);
 		SetupMainMenu();
 		SetupControllers();
+		CreateLevelButtons();
 	}
 
 	private void SetupMainMenu() {
