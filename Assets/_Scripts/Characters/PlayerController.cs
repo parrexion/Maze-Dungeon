@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SelectCharacter(int index) {
-		if (!players[index-1].gameObject.activeSelf)
+		if (!players[index-1].gameObject.activeSelf || paused.value)
 			return;
 
 		if (isSinglePlayer.value) {
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void SelectCharacterP2(int index) {
-		if (!players[index-1].gameObject.activeSelf || isSinglePlayer.value)
+		if (!players[index-1].gameObject.activeSelf || isSinglePlayer.value || paused.value)
 			return;
 
 		p2SelectedCharacter.value = index;
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ChangePlayer() {
-		if (!isSinglePlayer.value)
+		if (!isSinglePlayer.value || paused.value)
 			return;
 		isPlayer1 = !isPlayer1;
 		int temp = p1SelectedCharacter.value;

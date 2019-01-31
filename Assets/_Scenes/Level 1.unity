@@ -4880,7 +4880,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
-  m_TileRefreshArray: []
 --- !u!1001 &948310344
 Prefab:
   m_ObjectHideFlags: 0

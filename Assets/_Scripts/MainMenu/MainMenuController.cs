@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject backgroundMulti;
 
 	[Header("Level select")]
+	private List<LevelButton> levelButtons = new List<LevelButton>();
 	public Transform levelParent;
 	public Transform buttonTemplate;
 	public IntVariable maxLevel;
@@ -35,6 +36,12 @@ public class MainMenuController : MonoBehaviour {
 	public IntVariable p1Index;
 	public IntVariable p2Index;
 
+	[Header("Menu Controls")]
+	public MyButton[] mainButtons;
+	private int menuMode;
+	private int currentIndex;
+	private int levelIndex;
+
 	[Header("Events")]
 	public UnityEvent nextLevelEvent;
 	public UnityEvent startSaveEvent;
@@ -48,6 +55,10 @@ public class MainMenuController : MonoBehaviour {
 		SetupMainMenu();
 		SetupControllers();
 		CreateLevelButtons();
+
+		menuMode = 0;
+		currentIndex = 0;
+		UpdateButtons();
 	}
 
 	private void SetupMainMenu() {
@@ -63,6 +74,7 @@ public class MainMenuController : MonoBehaviour {
 			lb.index = i;
 			lb.text.text = (i+1).ToString();
 			lb.button.interactable = (bestScore.value > i);
+			levelButtons.Add(lb);
 		}
 		buttonTemplate.gameObject.SetActive(false);
 	}
@@ -108,20 +120,107 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void GoToMainMenu() {
+		menuMode = 0;
 		mainMenu.SetActive(true);
 		levelSelect.SetActive(false);
 		controllerSelect.SetActive(false);
+		UpdateButtons();
 	}
 
 	public void GoToLevelSelect() {
+		menuMode = 1;
+		levelIndex = 0;
 		mainMenu.SetActive(false);
 		levelSelect.SetActive(true);
 		controllerSelect.SetActive(false);
+		UpdateButtons();
 	}
 
 	public void GoToControllerSelect() {
+		menuMode = 2;
 		mainMenu.SetActive(false);
 		levelSelect.SetActive(false);
 		controllerSelect.SetActive(true);
+		UpdateButtons();
+	}
+
+	//////
+	/// INPUT
+	//////
+
+	public void UpdateButtons() {
+		if (menuMode == 0) {
+			for (int i = 0; i < mainButtons.Length; i++) {
+				mainButtons[i].SetHighlight(i == currentIndex);
+			}
+		}
+		else if (menuMode == 1) {
+			for (int i = 0; i < levelButtons.Count; i++) {
+				levelButtons[i].SetHighlight(i == levelIndex);
+			}
+		}
+	}
+
+	public void OnOK() {
+		if (menuMode == 0) {
+			mainButtons[currentIndex].Click();
+		}
+		else if (menuMode == 1) {
+			if (levelIndex < maxLevel.value) {
+				levelButtons[levelIndex].Clicked();
+			}
+		}
+	}
+
+	public void OnBack() {
+		if (menuMode == 1 || menuMode == 2) {
+			GoToMainMenu();
+		}
+	}
+
+	public void OnUp() {
+		if (menuMode == 0) {
+			currentIndex--;
+			if (currentIndex < 0)
+				currentIndex = mainButtons.Length-1;
+		}
+		else if (menuMode == 1) {
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex -10);
+		}
+
+		UpdateButtons();
+	}
+
+	public void OnDown() {
+		if (menuMode == 0) {
+			currentIndex++;
+			if (currentIndex > mainButtons.Length-1)
+				currentIndex = 0;
+		}
+		else if (menuMode == 1) {
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex +10);
+		}
+
+		UpdateButtons();
+	}
+
+	public void OnLeft() {
+		if (menuMode == 1) {
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex -1);
+			UpdateButtons();
+		}
+		else if (menuMode == 2) {
+			ChangeControllerP1(-1);
+		}
+	}
+
+	public void OnRight() {
+		if (menuMode == 1) {
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex +1);
+			UpdateButtons();
+		}
+		else if (menuMode == 2) {
+			ChangeControllerP1(1);
+		}
 	}
 }
