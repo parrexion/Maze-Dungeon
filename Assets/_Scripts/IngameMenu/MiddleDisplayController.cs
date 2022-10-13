@@ -11,6 +11,7 @@ public class MiddleDisplayController : MonoBehaviour {
 
 	[Header("Game End")]
 	public GameObject gameEndScreen;
+	public Text winText;
 	public Text gameOverText;
 
 	[Header("Pause Menu")]
@@ -27,7 +28,8 @@ public class MiddleDisplayController : MonoBehaviour {
 	private void Start () {
 		gameEndScreen.SetActive(false);
 		pauseButtonsView.SetActive(false);
-		gameOverText.text = "";
+		gameOverText.gameObject.SetActive(false);
+		winText.gameObject.SetActive(false);
 	}
 
 	public void ShowPauseMenu() {
@@ -53,7 +55,8 @@ public class MiddleDisplayController : MonoBehaviour {
 
 	public void GameOver() {
 		gameEndScreen.SetActive(true);
-		gameOverText.text = "YOU DIED!";
+		gameOverText.gameObject.SetActive(true);
+		winText.gameObject.SetActive(false);
 		paused.value = true;
 		lockControls.value = true;
 		StartCoroutine(GameOverDelay(false));
@@ -69,7 +72,8 @@ public class MiddleDisplayController : MonoBehaviour {
 
 	public void OnReachedGoal() {
 		gameEndScreen.SetActive(true);
-		gameOverText.text = "You Win!";
+		gameOverText.gameObject.SetActive(false);
+		winText.gameObject.SetActive(true);
 		paused.value = true;
 		lockControls.value = true;
 		StartCoroutine(GameOverDelay(true));

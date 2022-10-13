@@ -18,11 +18,11 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject backgroundMulti;
 
 	[Header("Level select")]
-	private List<LevelButton> levelButtons = new List<LevelButton>();
 	public Transform levelParent;
 	public Transform buttonTemplate;
 	public IntVariable maxLevel;
 	public IntVariable bestScore;
+	private List<LevelButton> levelButtons = new List<LevelButton>();
 
 	[Header("Controller Setup")]
 	public ControllerScheme[] schemePool;
@@ -173,7 +173,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void OnBack() {
-		if (menuMode == 1 || menuMode == 2) {
+		if (menuMode == 1) {
 			GoToMainMenu();
 		}
 	}
@@ -210,7 +210,7 @@ public class MainMenuController : MonoBehaviour {
 			UpdateButtons();
 		}
 		else if (menuMode == 2) {
-			ChangeControllerP1(-1);
+			//ChangeControllerP1(-1);
 		}
 	}
 
@@ -220,7 +220,7 @@ public class MainMenuController : MonoBehaviour {
 			UpdateButtons();
 		}
 		else if (menuMode == 2) {
-			ChangeControllerP1(1);
+			//ChangeControllerP1(1);
 		}
 	}
 }
