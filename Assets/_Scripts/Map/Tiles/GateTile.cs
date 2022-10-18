@@ -8,9 +8,10 @@ public class GateTile : MapTile {
 	public static int speed = 1;
 
 	public ButtonGroup group;
-	public Text groupText;
 	public Transform leftGate;
 	public Transform rightGate;
+	public Canvas canvas;
+	public Text groupText;
 
 	private bool active;
 
@@ -18,7 +19,7 @@ public class GateTile : MapTile {
 	public override void Setup() {
 		active = reversed;
 		blocked = !active;
-		groupText.text = "";
+		Destroy(canvas.gameObject);
 		if (reversed) {
 			leftGate.localScale = new Vector3(0f,1,1);
 			rightGate.localScale = new Vector3(0f,1,1);

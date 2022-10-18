@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PatrolTile : MapTile {
 
+	public Canvas canvas;
 	public Text groupText;
 	
 	private Color p1Color = new Color(0.6f, 0.2f, 0.4f);
@@ -12,7 +13,7 @@ public class PatrolTile : MapTile {
 
 
 	public override void Setup() {
-		groupText.text = "";
+		Destroy(canvas.gameObject);
 		rend.color = Color.white;
 	}
 

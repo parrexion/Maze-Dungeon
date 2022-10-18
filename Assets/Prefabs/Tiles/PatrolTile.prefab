@@ -110,6 +110,7 @@ MonoBehaviour:
   killPlayerEvent:
     m_PersistentCalls:
       m_Calls: []
+  canvas: {fileID: 223178817268525018}
   groupText: {fileID: 114108962644180396}
 --- !u!1 &1583555065008948
 GameObject:

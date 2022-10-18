@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class StartTile : MapTile {
 
+	public Canvas canvas;
 	public Text startNumber;
 
 	public override void Setup() {
-		startNumber.text = "";
+		Destroy(canvas.gameObject);
 	}
 
 	public override void SetupEditor() {

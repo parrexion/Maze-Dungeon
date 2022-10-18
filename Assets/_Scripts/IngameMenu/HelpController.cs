@@ -19,8 +19,8 @@ public class HelpController : MonoBehaviour {
 
 	public SchemeReference player1Controls;
 	public SchemeReference player2Controls;
-	public Text player1Text;
-	public Text player2Text;
+	public TMPro.TextMeshProUGUI player1Text;
+	public TMPro.TextMeshProUGUI player2Text;
 
 	public bool player1ok;
 	public bool player2ok;
@@ -66,7 +66,7 @@ public class HelpController : MonoBehaviour {
 			player2Text.text = text2;
 		}
 		else {
-			Text[] texts = singleImage.GetComponentsInChildren<Text>();
+			TMPro.TextMeshProUGUI[] texts = singleImage.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
 			for (int i = 0; i < texts.Length; i++) {
 				string text = texts[i].text;
 				string text2 = text.Replace("%UP", player1Controls.value.GetKeyName("%UP"))

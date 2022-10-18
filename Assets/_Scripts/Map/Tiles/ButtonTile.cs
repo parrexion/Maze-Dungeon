@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class ButtonTile : MapTile {
 
-	public Text groupText;
 	public ButtonGroup group;
 
 	public bool activated;
 	public Sprite deactivatedColor;
-	public Sprite waitingColor;
+	//public Sprite waitingColor;
 	public Sprite activatedColor;
+
+	public Canvas canvas;
+	public Text groupText;
 
 
 	public override void Setup() {
-		groupText.text = "";
+		Destroy(canvas.gameObject);
 	}
 
 	public override void SetupEditor() {

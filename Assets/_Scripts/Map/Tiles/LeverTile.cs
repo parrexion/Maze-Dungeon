@@ -20,11 +20,15 @@ public class LeverTile : MapTile {
 
 	public override void SetupEditor() {
 		groupText.text = groupID.ToString();
-		if (faceDirection == Direction.DOWN || faceDirection == Direction.UP) {
-			transform.localRotation = Quaternion.Euler(0,0,90);
+		if (faceDirection == Direction.LEFT) {
+			transform.localRotation = Quaternion.Euler(0, 0, 90);
+			rend.flipX = true;
+		}
+		else if (faceDirection == Direction.RIGHT) {
+			transform.localRotation = Quaternion.Euler(0, 0, -90);
 		}
 	}
-	
+
 	public override bool DoAction(BasicControls player, Direction direction) {
 		ChangeState();
 		group.UpdatePowerLevel();

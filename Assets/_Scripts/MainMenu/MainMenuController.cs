@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject mainMenu;
 	public GameObject levelSelect;
 	public GameObject controllerSelect;
+	public IntVariable musicVolume;
+	private AudioController audioController;
 
 	[Header("Main menu")]
 	public BoolVariable lockControls;
@@ -38,6 +40,9 @@ public class MainMenuController : MonoBehaviour {
 
 	[Header("Menu Controls")]
 	public MyButton[] mainButtons;
+	public MyButton musicSlider;
+	public MyButton changeButton;
+	public Slider musicSliderSlider;
 	private int menuMode;
 	private int currentIndex;
 	private int levelIndex;
@@ -47,7 +52,7 @@ public class MainMenuController : MonoBehaviour {
 	public UnityEvent startSaveEvent;
 
 
-	private void Start () {
+	private void Start() {
 		currentLevelIndex.value = 0;
 		mainMenu.SetActive(true);
 		levelSelect.SetActive(false);
@@ -59,6 +64,9 @@ public class MainMenuController : MonoBehaviour {
 		menuMode = 0;
 		currentIndex = 0;
 		UpdateButtons();
+		audioController = FindObjectOfType<AudioController>();
+		musicSliderSlider.value = musicVolume.value;
+		//Debug.Log("Best score: " + bestScore.value);
 	}
 
 	private void SetupMainMenu() {
@@ -67,12 +75,11 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void CreateLevelButtons() {
-		Debug.Log("Buttons!");
 		for (int i = 0; i < maxLevel.value; i++) {
 			Transform t = Instantiate(buttonTemplate, levelParent);
 			LevelButton lb = t.GetComponent<LevelButton>();
 			lb.index = i;
-			lb.text.text = (i+1).ToString();
+			lb.text.text = (i + 1).ToString();
 			lb.button.interactable = (bestScore.value > i);
 			levelButtons.Add(lb);
 		}
@@ -96,14 +103,14 @@ public class MainMenuController : MonoBehaviour {
 
 	public void ChangeControllerP1(int dir) {
 		do {
-			p1Index.value = OPMath.FullLoop(0, schemePool.Length-1, p1Index.value + dir);
+			p1Index.value = OPMath.FullLoop(0, schemePool.Length - 1, p1Index.value + dir);
 		} while (p1Index.value == p2Index.value);
 		SetupControllers();
 	}
 
 	public void ChangeControllerP2(int dir) {
 		do {
-			p2Index.value = OPMath.FullLoop(0, schemePool.Length-1, p2Index.value + dir);
+			p2Index.value = OPMath.FullLoop(0, schemePool.Length - 1, p2Index.value + dir);
 		} while (p1Index.value == p2Index.value);
 		SetupControllers();
 	}
@@ -144,6 +151,13 @@ public class MainMenuController : MonoBehaviour {
 		UpdateButtons();
 	}
 
+	public void QuitGame() {
+		Application.Quit();
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+#endif
+	}
+
 	//////
 	/// INPUT
 	//////
@@ -153,6 +167,8 @@ public class MainMenuController : MonoBehaviour {
 			for (int i = 0; i < mainButtons.Length; i++) {
 				mainButtons[i].SetHighlight(i == currentIndex);
 			}
+			musicSlider.SetHighlight(currentIndex == -1);
+			changeButton.SetHighlight(currentIndex == 10);
 		}
 		else if (menuMode == 1) {
 			for (int i = 0; i < levelButtons.Count; i++) {
@@ -163,10 +179,13 @@ public class MainMenuController : MonoBehaviour {
 
 	public void OnOK() {
 		if (menuMode == 0) {
-			mainButtons[currentIndex].Click();
+			if (currentIndex == 10)
+				changeButton.Click();
+			else if (currentIndex != -1)
+				mainButtons[currentIndex].Click();
 		}
 		else if (menuMode == 1) {
-			if (levelIndex < maxLevel.value) {
+			if (levelIndex < maxLevel.value && levelIndex < bestScore.value) {
 				levelButtons[levelIndex].Clicked();
 			}
 		}
@@ -180,12 +199,21 @@ public class MainMenuController : MonoBehaviour {
 
 	public void OnUp() {
 		if (menuMode == 0) {
-			currentIndex--;
-			if (currentIndex < 0)
-				currentIndex = mainButtons.Length-1;
+			if (currentIndex == -1) {
+				if (musicVolume.value < 6) {
+					musicVolume.value++;
+					musicSliderSlider.value = musicVolume.value;
+					audioController.UpdateVolume();
+				}
+			}
+			else if (currentIndex < 10) {
+				currentIndex--;
+				if (currentIndex < 0)
+					currentIndex = mainButtons.Length - 1;
+			}
 		}
 		else if (menuMode == 1) {
-			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex -10);
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count - 1, levelIndex - 10);
 		}
 
 		UpdateButtons();
@@ -193,20 +221,36 @@ public class MainMenuController : MonoBehaviour {
 
 	public void OnDown() {
 		if (menuMode == 0) {
-			currentIndex++;
-			if (currentIndex > mainButtons.Length-1)
-				currentIndex = 0;
+			if (currentIndex == -1) {
+				if (musicVolume.value > 0) {
+					musicVolume.value--;
+					musicSliderSlider.value = musicVolume.value;
+					audioController.UpdateVolume();
+				}
+			}
+			else if (currentIndex < 10) {
+				currentIndex++;
+				if (currentIndex > mainButtons.Length - 1)
+					currentIndex = 0;
+			}
 		}
 		else if (menuMode == 1) {
-			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex +10);
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count - 1, levelIndex + 10);
 		}
 
 		UpdateButtons();
 	}
 
 	public void OnLeft() {
-		if (menuMode == 1) {
-			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex -1);
+		if (menuMode == 0) {
+			if (currentIndex == 10)
+				currentIndex = 2;
+			else
+				currentIndex = -1;
+			UpdateButtons();
+		}
+		else if (menuMode == 1) {
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count - 1, levelIndex - 1);
 			UpdateButtons();
 		}
 		else if (menuMode == 2) {
@@ -215,12 +259,24 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void OnRight() {
-		if (menuMode == 1) {
-			levelIndex = OPMath.FullLoop(0, levelButtons.Count-1, levelIndex +1);
+		if (menuMode == 0) {
+			if (currentIndex == -1)
+				currentIndex = 2;
+			else
+				currentIndex = 10;
+			UpdateButtons();
+		}
+		else if (menuMode == 1) {
+			levelIndex = OPMath.FullLoop(0, levelButtons.Count - 1, levelIndex + 1);
 			UpdateButtons();
 		}
 		else if (menuMode == 2) {
 			//ChangeControllerP1(1);
 		}
+	}
+
+	public void SliderVolume(float value) {
+		musicVolume.value = Mathf.RoundToInt(value);
+		audioController.UpdateVolume();
 	}
 }

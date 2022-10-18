@@ -44,7 +44,7 @@ public class MapCreator : MonoBehaviour {
 				}
 			}
 			catch (System.Exception) {
-				Debug.Log("Duplicate on position " + x + " , " + y);
+				Debug.Log("Duplicate on position " + x + " , " + y, allTiles[i]);
 				throw;
 			}
 

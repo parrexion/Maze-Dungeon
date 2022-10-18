@@ -42,7 +42,7 @@ public class AudioController : MonoBehaviour {
 	private int currentSfxTrack;
 
 
-	void Startup() {
+	private void Startup() {
 		UpdateVolume();
 		PlayMainMusic();
 	}
@@ -54,8 +54,8 @@ public class AudioController : MonoBehaviour {
 		for (int i = 0; i < efxSource.Length; i++) {
 			efxSource[i].volume = 0.01f * Mathf.Clamp(effectVolume.value, 0 ,100);
 		}
-		musicMainSource.volume = 0.01f * Mathf.Clamp(musicVolume.value, 0 ,100);
-		musicSubSource.volume = 0.01f * Mathf.Clamp(musicVolume.value, 0 ,100);
+		musicMainSource.volume = 0.01f * Mathf.Clamp(musicVolume.value * 5, 0 ,100);
+		musicSubSource.volume = 0.01f * Mathf.Clamp(musicVolume.value * 5, 0 ,100);
 	}
 
 	/// <summary>
@@ -78,13 +78,13 @@ public class AudioController : MonoBehaviour {
 	/// Playes the background music or stops the music if clip is null.
 	/// </summary>
 	/// <param name="clip">Clip.</param>
-	void PlayBackgroundMusic(bool isMain, bool updateClip) {
+	private void PlayBackgroundMusic(bool isMain, bool updateClip) {
 		// Debug.Log("MUSIC!");
 		AudioClip selectedSong = (isMain) ? mainMusic.value : subMusic.value;
 		AudioSource source = (isMain) ? musicMainSource : musicSubSource;
 		bool useVolume = (isMain && musicFocusSource.value || !isMain && !musicFocusSource.value);
 		
-		source.volume = (useVolume) ? 0.01f * Mathf.Clamp(musicVolume.value, 0, 100) : 0;
+		source.volume = (useVolume) ? 0.01f * Mathf.Clamp(musicVolume.value * 5, 0, 100) : 0;
 		if (selectedSong == null) {
 			source.Stop();
 			source.clip = null;
