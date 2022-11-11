@@ -15,12 +15,15 @@ MonoBehaviour:
   schemeName: Joystick 1
   schemeIcon: {fileID: 21300000, guid: 14c2669fefbe3b44abe58b2b03e545b9, type: 3}
   useStick: 1
+  descStickDir: 
   vertical: LstickVertical
   horizontal: LstickHorizontal
+  descButtonDir: Left stick
   up: 0
   left: 0
   right: 0
   down: 0
+  descCharacterSel: ABXY
   select1: 350
   select2: 351
   select3: 352

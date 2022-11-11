@@ -18,6 +18,7 @@ public class MainMenuController : MonoBehaviour {
 	public BoolVariable isSinglePlayer;
 	public GameObject backgroundSingle;
 	public GameObject backgroundMulti;
+	public GameObject exitButton;
 
 	[Header("Level select")]
 	public Transform levelParent;
@@ -31,12 +32,24 @@ public class MainMenuController : MonoBehaviour {
 	public SchemeReference player1ControllerScheme;
 	public SchemeReference player2ControllerScheme;
 	public GameObject player2Side;
+	public GameObject scheme1SwapModeEntry;
+	[Space(10)]
 	public Text scheme1Text;
-	public Text scheme2Text;
 	public Image scheme1Icon;
-	public Image scheme2Icon;
 	public IntVariable p1Index;
+	public Text scheme1TextMovement;
+	public Text scheme1TextCharacters;
+	public Text scheme1TextAction;
+	public Text scheme1TextPause;
+	public Text scheme1TextMode;
+	[Space(10)]
+	public Text scheme2Text;
+	public Image scheme2Icon;
 	public IntVariable p2Index;
+	public Text scheme2TextMovement;
+	public Text scheme2TextCharacters;
+	public Text scheme2TextAction;
+	public Text scheme2TextPause;
 
 	[Header("Menu Controls")]
 	public MyButton[] mainButtons;
@@ -67,6 +80,10 @@ public class MainMenuController : MonoBehaviour {
 		audioController = FindObjectOfType<AudioController>();
 		musicSliderSlider.value = musicVolume.value;
 		//Debug.Log("Best score: " + bestScore.value);
+#if UNITY_WEBGL
+		System.Array.Resize(ref mainButtons, mainButtons.Length - 1);
+		exitButton.SetActive(false);
+#endif
 	}
 
 	private void SetupMainMenu() {
@@ -89,13 +106,25 @@ public class MainMenuController : MonoBehaviour {
 	private void SetupControllers() {
 		scheme1Text.text = schemePool[p1Index.value].schemeName;
 		scheme1Icon.sprite = schemePool[p1Index.value].schemeIcon;
+		scheme1TextMovement.text = schemePool[p1Index.value].descButtonDir;
+		scheme1TextCharacters.text = schemePool[p1Index.value].descCharacterSel;
+		scheme1TextAction.text = schemePool[p1Index.value].GetKeyName("%ACTION");
+		scheme1TextPause.text = schemePool[p1Index.value].GetKeyName("%PAUSE");
 		if (isSinglePlayer.value) {
 			player2Side.SetActive(false);
+			scheme1SwapModeEntry.SetActive(true);
+			scheme1TextMode.text = schemePool[p1Index.value].GetKeyName("%SWITCH");
 		}
 		else {
 			player2Side.SetActive(true);
+			scheme1SwapModeEntry.SetActive(false);
+
 			scheme2Text.text = schemePool[p2Index.value].schemeName;
 			scheme2Icon.sprite = schemePool[p2Index.value].schemeIcon;
+			scheme2TextMovement.text = schemePool[p2Index.value].descButtonDir;
+			scheme2TextCharacters.text = schemePool[p2Index.value].descCharacterSel;
+			scheme2TextAction.text = schemePool[p2Index.value].GetKeyName("%ACTION");
+			scheme2TextPause.text = schemePool[p2Index.value].GetKeyName("%PAUSE");
 		}
 		player1ControllerScheme.value = schemePool[p1Index.value];
 		player2ControllerScheme.value = schemePool[p2Index.value];

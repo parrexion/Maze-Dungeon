@@ -15,16 +15,19 @@ MonoBehaviour:
   schemeName: Keyboard Right
   schemeIcon: {fileID: 21300000, guid: ec18d2c9ccf4af440b90fdd4af4a64b7, type: 3}
   useStick: 0
+  descStickDir: 
   vertical: 
   horizontal: 
+  descButtonDir: Arrows
   up: 273
   left: 276
   right: 275
   down: 274
+  descCharacterSel: Keypad 1-4
   select1: 257
   select2: 258
   select3: 259
   select4: 260
-  action: 305
+  action: 256
   mode: 271
   start: 13

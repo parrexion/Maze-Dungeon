@@ -11,16 +11,19 @@ public class ControllerScheme : ScriptableObject {
 	public bool useStick;
 
 	[Header("Stick directions")]
+	public string descStickDir;
 	public string vertical;
 	public string horizontal;
 
 	[Header("Button directions")]
+	public string descButtonDir;
 	public KeyCode up;
 	public KeyCode left;
 	public KeyCode right;
 	public KeyCode down;
 
 	[Header("Character select")]
+	public string descCharacterSel;
 	public KeyCode select1;
 	public KeyCode select2;
 	public KeyCode select3;
@@ -44,9 +47,9 @@ public class ControllerScheme : ScriptableObject {
 			case "%DOWN":
 				return (useStick) ? "[DOWN]" : "[" + down + "]";
 			case "%ACTION":
-				return (useStick) ? "[R]" : "[" + action + "]";
+				return (useStick) ? "[RB]" : "[" + action + "]";
 			case "%SWITCH":
-				return (useStick) ? "[L]" : "[" + mode + "]";
+				return (useStick) ? "[LB]" : "[" + mode + "]";
 			case "%S1":
 				return (useStick) ? "[A]" : "[" + select1 + "]";
 			case "%S2":
@@ -55,6 +58,8 @@ public class ControllerScheme : ScriptableObject {
 				return (useStick) ? "[X]" : "[" + select3 + "]";
 			case "%S4":
 				return (useStick) ? "[Y]" : "[" + select4 + "]";
+			case "%PAUSE":
+				return (useStick) ? "[OPTIONS]" : "[" + start + "]";
 			default:
 				return "ERROR";
 		}

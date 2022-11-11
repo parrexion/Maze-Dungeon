@@ -15,16 +15,19 @@ MonoBehaviour:
   schemeName: Keyboard Left
   schemeIcon: {fileID: 21300000, guid: ec18d2c9ccf4af440b90fdd4af4a64b7, type: 3}
   useStick: 0
+  descStickDir: 
   vertical: 
   horizontal: 
+  descButtonDir: WASD
   up: 119
   left: 97
   right: 100
   down: 115
+  descCharacterSel: Alpha 1-4
   select1: 49
   select2: 50
   select3: 51
   select4: 52
-  action: 306
+  action: 101
   mode: 32
   start: 9

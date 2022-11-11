@@ -48,6 +48,7 @@ public class SaveController : MonoBehaviour {
 		saveFileData = new SavePackage();
 
 		// Setup save data
+		saveFileData.isSinglePlayer = false;
 		saveFileData.p1Index = p1Index.value = 0;
 		saveFileData.p1Index = p2Index.value = 1;
 
