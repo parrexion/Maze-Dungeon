@@ -33,19 +33,25 @@ public class MiddleDisplayController : MonoBehaviour {
 	}
 
 	public void ShowPauseMenu() {
+		if (paused.value)
+			return;
 		Debug.Log("Show Pause");
 		paused.value = true;
 		pauseIndex = 0;
 		UpdateButtons();
-		//lockControls.value = true;
 		pauseButtonsView.SetActive(true);
 	}
 
 	public void HidePauseMenu() {
 		Debug.Log("Hide Pause");
-		paused.value = false;
-		//lockControls.value = false;
+		// paused.value = false;
 		pauseButtonsView.SetActive(false);
+		StartCoroutine(Co_HidePause());
+	}
+
+	private IEnumerator Co_HidePause() {
+		yield return null;
+		paused.value = false;
 	}
 
 	public void ReturnToMain() {
@@ -83,8 +89,7 @@ public class MiddleDisplayController : MonoBehaviour {
 	//////
 	/// INPUT
 	//////
-
-	public void UpdateButtons() {
+	private void UpdateButtons() {
 		for (int i = 0; i < pauseButtons.Length; i++) {
 			pauseButtons[i].SetHighlight(i == pauseIndex);
 		}

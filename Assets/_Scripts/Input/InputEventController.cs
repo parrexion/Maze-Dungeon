@@ -18,7 +18,7 @@ public class InputEventController : MonoBehaviour {
 	}
 #endregion
 
-	private enum InputType { UP, LEFT, RIGHT, DOWN, SEL1, SEL2, SEL3, SEL4, ACTION, SWITCH, START, HOLD_ACT }
+	private enum InputType { UP, LEFT, RIGHT, DOWN, SEL1, SEL2, SEL3, SEL4, ACTION, SWITCH, START, HOLD_ACT, UI_OK, UI_CANCEL }
 
 	public int holdDelay = 25;
 	public int scrollSpeed = 5;
@@ -30,6 +30,10 @@ public class InputEventController : MonoBehaviour {
 	[Header("Control locks")]
 	public BoolVariable lockAllControls;
 
+	[Header("UI events")]
+	public UnityEvent uiOKEvent;
+	public UnityEvent uiCancelEvent;
+	
 	[Header("Move events")]
 	public UnityEvent upArrowEvent;
 	public UnityEvent downArrowEvent;
@@ -72,6 +76,7 @@ public class InputEventController : MonoBehaviour {
 		if (lockAllControls.value)
 			return;
 
+		UIMode();
 		MenuMode(player1ControllerScheme.value, true);
 		MenuMode(player2ControllerScheme.value, false);
 	}
@@ -89,19 +94,19 @@ public class InputEventController : MonoBehaviour {
 				axisRight = false;
 			}
 			// Stick presses
-			if (!axisUp && Input.GetAxis(scheme.vertical) == -1) {
+			if (!axisUp && Input.GetAxis(scheme.vertical) <= -1f) {
 				CallEvent(InputType.UP, isPlayer1);
 				axisUp = true;
 			}
-			if (!axisLeft && Input.GetAxis(scheme.horizontal) == -1) {
+			if (!axisLeft && Input.GetAxis(scheme.horizontal) <= -1f) {
 				CallEvent(InputType.LEFT, isPlayer1);
 				axisLeft = true;
 			}
-			if (!axisRight && Input.GetAxis(scheme.horizontal) == 1) {
+			if (!axisRight && Input.GetAxis(scheme.horizontal) >= 1f) {
 				CallEvent(InputType.RIGHT, isPlayer1);
 				axisRight = true;
 			}
-			if (!axisDown && Input.GetAxis(scheme.vertical) == 1) {
+			if (!axisDown && Input.GetAxis(scheme.vertical) >= 1f) {
 				CallEvent(InputType.DOWN, isPlayer1);
 				axisDown = true;
 			}
@@ -152,11 +157,27 @@ public class InputEventController : MonoBehaviour {
 		SetButtonHold(InputType.HOLD_ACT, isPlayer1, Input.GetKey(scheme.action));
 	}
 
-	private void InGameMode() {
-
+	private void UIMode() {
+		//UI actions
+		if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
+			CallEvent(InputType.UI_OK, true);
+		}
+		else if (Input.GetKeyDown(KeyCode.Return)) {
+			CallEvent(InputType.UI_OK, true);
+		}
+		else if (Input.GetKeyDown(KeyCode.Space)) {
+			CallEvent(InputType.UI_OK, true);
+		}
+		if (Input.GetKeyDown(KeyCode.Backspace)) {
+			CallEvent(InputType.UI_CANCEL, true);
+		}
+		else if (Input.GetKeyDown(KeyCode.Escape)) {
+			CallEvent(InputType.UI_CANCEL, true);
+		}
 	}
 
 	private void CallEvent(InputType type, bool isPlayer1) {
+		Debug.Log($"Call event: {type}, {isPlayer1}");
 		switch (type)
 		{
 			case InputType.UP:
@@ -202,6 +223,12 @@ public class InputEventController : MonoBehaviour {
 			case InputType.START:
 				if (isPlayer1) startButtonEvent.Invoke();
 				else startButtonP2Event.Invoke();
+				break;
+			case InputType.UI_OK:
+				uiOKEvent.Invoke();
+				break;
+			case InputType.UI_CANCEL:
+				uiCancelEvent.Invoke();
 				break;
 			default:
 				Debug.LogError("Invalid input!");

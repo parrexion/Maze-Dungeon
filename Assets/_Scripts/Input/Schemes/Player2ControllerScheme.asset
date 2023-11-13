@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ccc3e5b00c64c48bd8a1778720f977, type: 3}
   m_Name: Player2ControllerScheme
   m_EditorClassIdentifier: 
-  value: {fileID: 11400000, guid: e0944da378db39c4a851c0a2073e621d, type: 2}
+  value: {fileID: 11400000, guid: 8a41383ef5bbbef40b183a58faf670ec, type: 2}

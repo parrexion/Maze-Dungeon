@@ -50,7 +50,7 @@ public class SaveController : MonoBehaviour {
 		// Setup save data
 		saveFileData.isSinglePlayer = false;
 		saveFileData.p1Index = p1Index.value = 0;
-		saveFileData.p1Index = p2Index.value = 1;
+		saveFileData.p2Index = p2Index.value = 1;
 
 		//Write to file
 		XmlWriterSettings xmlWriterSettings = new XmlWriterSettings() { Indent = true };

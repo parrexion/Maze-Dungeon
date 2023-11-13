@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6c2dac38df72694b98dd61a1dd0979e, type: 3}
-  m_Name: SchemeKeyboardP1
+  m_Name: SchemeKeyboardP3
   m_EditorClassIdentifier: 
-  schemeName: Keyboard Left
+  schemeName: Keyboard Right
   schemeIcon: {fileID: 21300000, guid: ec18d2c9ccf4af440b90fdd4af4a64b7, type: 3}
   useStick: 0
   descStickDir: 
   vertical: 
   horizontal: 
-  descButtonDir: WASD
-  up: 119
-  left: 97
-  right: 100
-  down: 115
-  descCharacterSel: Alpha 1-4
-  select1: 49
-  select2: 50
-  select3: 51
-  select4: 52
-  action: 101
-  mode: 32
-  start: 9
+  descButtonDir: Arrows
+  up: 273
+  left: 276
+  right: 275
+  down: 274
+  descCharacterSel: Keypad 1-4
+  select1: 257
+  select2: 258
+  select3: 259
+  select4: 260
+  action: 256
+  mode: 271
+  start: 13

@@ -131,9 +131,17 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void ChangeControllerP1(int dir) {
-		do {
-			p1Index.value = OPMath.FullLoop(0, schemePool.Length - 1, p1Index.value + dir);
-		} while (p1Index.value == p2Index.value);
+		if (isSinglePlayer.value) {
+			int nextIndex = OPMath.FullLoop(0, schemePool.Length - 1, p1Index.value + dir);
+			if (nextIndex == p2Index.value)
+				p2Index.value = p1Index.value;
+			p1Index.value = nextIndex;
+		}
+		else {
+			do {
+				p1Index.value = OPMath.FullLoop(0, schemePool.Length - 1, p1Index.value + dir);
+			} while (p1Index.value == p2Index.value);
+		}
 		SetupControllers();
 	}
 
@@ -192,6 +200,7 @@ public class MainMenuController : MonoBehaviour {
 	//////
 
 	public void UpdateButtons() {
+		Debug.Log("Current index  " + currentIndex);
 		if (menuMode == 0) {
 			for (int i = 0; i < mainButtons.Length; i++) {
 				mainButtons[i].SetHighlight(i == currentIndex);
@@ -207,6 +216,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void OnOK() {
+		Debug.Log("Current index  " + currentIndex);
 		if (menuMode == 0) {
 			if (currentIndex == 10)
 				changeButton.Click();
